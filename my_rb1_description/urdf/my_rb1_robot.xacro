@@ -9,11 +9,12 @@
     <gazebo>
         <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
             <alwaysOn>true</alwaysOn>
-            <updateRate>20</updateRate>
+            <updateRate>200</updateRate>
             <leftJoint>lwheel_joint</leftJoint>
             <rightJoint>rwheel_joint</rightJoint>
-            <wheelSeparation>0.2</wheelSeparation>
-            <wheelDiameter>0.025</wheelDiameter>
+            <wheelSeparation>0.4</wheelSeparation>
+            <wheelAcceleration>0.5</wheelAcceleration>
+            <wheelDiameter>0.05</wheelDiameter>
             <torque>10</torque>
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
@@ -86,7 +87,7 @@
                 </noise>
             </ray>
             <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-                <topicName>/laser/scan</topicName>
+                <topicName>/scan</topicName>
                 <frameName>front_laser</frameName>
             </plugin>
         </sensor>
@@ -143,7 +144,7 @@
     <link name="right_wheel">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="25" />
+            <mass value="1" />
             <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
         </inertial>
 
@@ -177,7 +178,7 @@
     <link name="left_wheel">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="25" />
+            <mass value="1" />
             <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
         </inertial>
 
@@ -208,7 +209,7 @@
 
     <link name="front_caster">
         <inertial>
-            <mass value="25" />
+            <mass value="1" />
             <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
         </inertial>
@@ -238,7 +239,7 @@
 
     <link name="back_caster">
         <inertial>
-            <mass value="25" />
+            <mass value="1" />
             <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
         </inertial>
