@@ -109,8 +109,7 @@
 
     <link name="base_link">
         <inertial>
-            <mass value="25"/>
-            
+            <mass value="23"/>
             <inertia ixx="0.578" ixy="0" ixz="0" iyy="0.578" iyz="0" izz="0.78" />
         </inertial>
 
@@ -144,8 +143,8 @@
     <link name="right_wheel">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
+            <mass value="0.5" />
+            <inertia ixx="0.000115" ixy="0" ixz="0" iyy="0.000156" iyz="0" izz="0.000115" />
         </inertial>
 
         <collision>
@@ -178,8 +177,8 @@
     <link name="left_wheel">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
+            <mass value="0.5" />
+            <inertia ixx="0.000115" ixy="0" ixz="0" iyy="0.000156" iyz="0" izz="0.000115" />
         </inertial>
 
         <collision>
@@ -209,9 +208,9 @@
 
     <link name="front_caster">
         <inertial>
-            <mass value="1" />
+            <mass value="0.5" />
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
+            <inertia ixx="0.000125" ixy="0" ixz="0" iyy="0.000125" iyz="0" izz="0.000125" />
         </inertial>
 
         <collision>
@@ -239,9 +238,9 @@
 
     <link name="back_caster">
         <inertial>
-            <mass value="1" />
+            <mass value="0.5" />
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <inertia ixx="1.5417" ixy="0" ixz="0" iyy="3.467" iyz="0" izz="4.742" />
+            <inertia ixx="0.000125" ixy="0" ixz="0" iyy="0.000125" iyz="0" izz="0.000125" />
         </inertial>
 
         <collision>
