@@ -1,0 +1,5 @@
+<launch>
+    <!-- Start Service Server for move_bb8_in_circle service -->
+    <node pkg="my_rb1_ros" type="rotate_service" name="rotate_rb1"  output="screen">
+    </node>
+</launch>
