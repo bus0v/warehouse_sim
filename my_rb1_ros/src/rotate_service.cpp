@@ -19,8 +19,8 @@ public:
   geometry_msgs::Twist vel;
   double roll, pitch, yaw;
   RotateService() {
-    sub = nh.subscribe("/odom", 1000, &RotateService::odomCallback, this);
-    pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
+    sub = nh.subscribe("/odom", 100, &RotateService::odomCallback, this);
+    pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 100);
     my_service =
         nh.advertiseService("/rotate_robot", &RotateService::my_callback, this);
     this->yaw = 0.0;
@@ -32,37 +32,43 @@ public:
     // We print an string whenever the Service gets called
     double rotate_goal = req.degrees * 0.0174533;
     double yaw;
-
-    ros::Rate rate(10);
-    int i = 0;
     double start_angle = this->yaw;
-    while (abs((this->yaw) - start_angle) < abs(rotate_goal)) {
-      float speed = 0.2;
+    
+    ros::Rate rate(10);
+    
+    float total = 0;
+    float angleOld = this->yaw;
+    float angleCurrent = this->yaw;
+
+    while (total < abs(rotate_goal)) {
+      float speed = 0.1;
       if (rotate_goal < 0) {
-        speed = -0.2;
+        speed = -0.1;
       }
-      ROS_INFO("current speed is %f", speed);
+      // ROS_INFO("current speed is %f", speed);
       vel.angular.z = speed;
       pub.publish(vel);
-      ROS_INFO("rotating goal %f", rotate_goal);
-      ROS_INFO("resulting angle yaw  %f", this->yaw);
-      ROS_INFO("start angle  %f", start_angle);
+      angleOld = angleCurrent;
+      angleCurrent = this->yaw;
+      
+      total = total + (abs(angleCurrent - angleOld));
+    //   ROS_INFO("rotating goal %f", rotate_goal);
+    //   ROS_INFO("current angle yaw  %f", this->yaw);
+    //   ROS_INFO("start angle  %f", start_angle);
+    //   ROS_INFO("difference  %f", total);
       ros::spinOnce();
-
-      i++;
+      rate.sleep();
+      
+      
     }
     vel.angular.z = 0.0;
     pub.publish(vel);
-
     res.result = "Succesfully Rotated!";
     return true;
   }
 
   void odomCallback(const nav_msgs::Odometry::ConstPtr &msg) {
-    //("x: %f", msg->pose.pose.orientation.x);
-    // ROS_INFO("y: %f", msg->pose.pose.orientation.y);
-    // ROS_INFO("z: %f", msg->pose.pose.orientation.z);
-    // ROS_INFO("w: %f", msg->pose.pose.orientation.w);
+   
     tf2::Quaternion q(
         msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
         msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
@@ -81,7 +87,7 @@ public:
 
     this->yaw = roll;
     // ROS_INFO("resulting angle yaw callback %f", yaw);
-    ROS_INFO("resulting angle roll callback %f", this->yaw);
+    //ROS_INFO("resulting angle roll callback %f", this->yaw);
     // ROS_INFO("resulting angle pitch callback %f", pitch);
   }
 };
